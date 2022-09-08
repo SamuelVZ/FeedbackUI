@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import FeedbackContext from '../context/FeedbackContext';
 import RatingSelect from './RatingSelect';
 import Button from './shared/Button';
@@ -10,7 +10,19 @@ function FeedbackForm() {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState('');
 
-  const { addFeedback } = useContext(FeedbackContext);
+  const { addFeedback, feedbackEdit } = useContext(FeedbackContext);
+
+  //used for side effects Ex. you want to fetch once he componen is loaded
+  useEffect(
+    () => {
+      if (feedbackEdit.edit === true) {
+        setBtnDisabled(false);
+        setText(feedbackEdit.item.text);
+        setRating(feedbackEdit.item.rating);
+      }
+    },
+    [feedbackEdit] //leave empty for only being run once the component is laoded
+  );
 
   const handleTextChange = (e) => {
     if (text === '') {
