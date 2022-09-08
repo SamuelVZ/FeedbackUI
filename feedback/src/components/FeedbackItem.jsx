@@ -1,18 +1,19 @@
 import Card from './shared/Card';
 import PropTypes from 'prop-types';
 import { MdDeleteForever } from 'react-icons/md';
+import { useContext } from 'react';
+import FeedbackContext from '../context/FeedbackContext';
 
 function FeedbackItem(props) {
+  const { deleteFeedback } = useContext(FeedbackContext);
+
   return (
     <Card>
-      <div className="num-display">{props.item.rating}</div>
-      <button
-        className="close"
-        onClick={() => props.handleDelete(props.item.id)}
-      >
-        <MdDeleteForever color="red" />
+      <div className='num-display'>{props.item.rating}</div>
+      <button className='close' onClick={() => deleteFeedback(props.item.id)}>
+        <MdDeleteForever color='red' />
       </button>
-      <div className="text-display">{props.item.text}</div>
+      <div className='text-display'>{props.item.text}</div>
     </Card>
   );
 }

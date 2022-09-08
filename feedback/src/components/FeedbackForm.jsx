@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import FeedbackContext from '../context/FeedbackContext';
 import RatingSelect from './RatingSelect';
 import Button from './shared/Button';
 import Card from './shared/Card';
 
-function FeedbackForm({ handleAdd }) {
+function FeedbackForm() {
   const [text, setText] = useState('');
   const [rating, setRating] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState('');
+
+  const { addFeedback } = useContext(FeedbackContext);
 
   const handleTextChange = (e) => {
     if (text === '') {
@@ -30,7 +33,7 @@ function FeedbackForm({ handleAdd }) {
         text,
         rating,
       };
-      handleAdd(newFeedback);
+      addFeedback(newFeedback);
       setText('');
       setRating(10);
     }
@@ -41,18 +44,18 @@ function FeedbackForm({ handleAdd }) {
       <form onSubmit={handleSubmit}>
         <h2>How do you rate your experience with us?</h2>
         <RatingSelect select={(rating) => setRating(rating)} />
-        <div className="input-group">
+        <div className='input-group'>
           <input
-            type="text"
-            placeholder="Write a review"
+            type='text'
+            placeholder='Write a review'
             onChange={handleTextChange}
             value={text}
           />
-          <Button type="submit" isDisabled={btnDisabled}>
+          <Button type='submit' isDisabled={btnDisabled}>
             Send
           </Button>
         </div>
-        {message && <div className="message">{message}</div>}
+        {message && <div className='message'>{message}</div>}
       </form>
     </Card>
   );
