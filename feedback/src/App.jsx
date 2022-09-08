@@ -45,7 +45,7 @@ function App() {
 
             <Route path='/about' element={<About />} />
             {/* exaple of using params */}
-            <Route path='/post' element={<Post />} />
+            <Route path='/post/*' element={<Post />} />
           </Routes>
         </div>
         <AboutIconLink />
