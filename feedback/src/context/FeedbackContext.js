@@ -28,17 +28,42 @@ export const FeedbackProvider = ({ children }) => {
     });
   };
 
+  const updateEditFeedback = (id, updatedItem) => {
+    setFeedback(
+      feedback.map(
+        (item) => {
+          if (item.id === id) {
+            setFeedbackEdit({ item: {}, edit: false });
+            return {
+              ...item,
+              ...updatedItem,
+            };
+          } else {
+            return item;
+          }
+        }
+        // item.id === id
+        //   ? {
+        //       ...item,
+        //       ...updatedItem,
+        //     }
+        //   : item
+      )
+    );
+  };
+
   return (
     <FeedbackContext.Provider
       value={{
         feedback,
+        feedbackEdit, //state
         deleteFeedback,
         addFeedback,
         editFeedback, //function
-        feedbackEdit, //state
+        updateEditFeedback,
       }}
     >
-      {children}
+      {children}{' '}
     </FeedbackContext.Provider>
   );
 };
